@@ -4,48 +4,58 @@ import java.util.*
 
 class IpUtil {
     companion object {
+        private val ipSetMin = BitSet(Integer.MAX_VALUE)
+        private val ipSetMax = BitSet(Integer.MAX_VALUE)
+        
         fun findUnique(file: File): Pair<Int, Int> {
             var duplicateIps = 0
             var unique = 0
-
-            val ips0 = BitSet()
-            val ips1 = BitSet()
-            val ips2 = BitSet()
-            val ips3 = BitSet()
+            
+            val uniqueSet = mutableSetOf<String>()
 
             file.bufferedReader().forEachLine {
-                val ipInt = ipToInt(it)
+                val ipLong = ipToLong(it)
                 var skip = false
                 
-                if(ips0.get(ipInt[0]) && ips1.get(ipInt[1]) && ips2[ipInt[2]] && ips3[ipInt[3]]) {
+                if(getBit(ipLong)) {
                     duplicateIps++
                     skip = true
                 }
-
+                
                 if(!skip) {
-                    ips0.set(ipInt[0])
-                    ips1.set(ipInt[1])
-                    ips2.set(ipInt[2])
-                    ips3.set(ipInt[3])
+                    setBit(ipLong)
                 }
                 
                 unique++
+                uniqueSet.add(it)
             }
 
             return Pair(unique - duplicateIps, duplicateIps)
         }
-        
-        
 
-        private fun ipToInt(ipString: String): IntArray {
-            val ip = IntArray(4)
-            val parts = ipString.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-
-            for (i in 0..3) {
-                ip[i] = parts[i].toInt()
+        private fun getBit(ip: Long): Boolean {
+            return if(ip > Integer.MAX_VALUE) {
+                ipSetMax.get(ip.toInt() - Integer.MAX_VALUE)
+            } else {
+                ipSetMin.get(ip.toInt())
             }
-            
-            return ip
+        }
+        
+        private fun setBit(ip: Long) {
+            if(ip > Integer.MAX_VALUE) {
+                ipSetMax.set(ip.toInt() - Integer.MAX_VALUE)
+            } else {
+                ipSetMin.set(ip.toInt())
+            }
+        }
+
+
+        private fun ipToLong(ip: String): Long {
+            val arrStr = ip.split(".")
+            require(arrStr.size == 4) { 
+                "Wrong IP address $ip" 
+            }
+            return arrStr[0].toLong() * 256 * 256 * 256 + arrStr[1].toLong() * 256 * 256 + arrStr[2].toLong() * 256 + arrStr[3].toLong()
         }
     }
 }
