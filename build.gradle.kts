@@ -30,6 +30,11 @@ tasks.test {
     useJUnitPlatform()
 }
 
+tasks.withType<Test> {
+    minHeapSize = "512m"
+    maxHeapSize = "1024m"
+}
+
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
