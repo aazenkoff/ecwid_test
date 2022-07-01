@@ -5,38 +5,32 @@ import java.util.*
 class IpUtil {
     companion object {
         fun findUnique(file: File): Pair<Int, Int> {
-            val bitIps = BitSet(Int.MAX_VALUE)
             var duplicateIps = 0
             var unique = 0
 
-            val ips = mutableMapOf<Int, Map<Int, Map<Int, Int>>>()
-            val ips2 = mutableMapOf<Int, Map<Int, Int>>()
-            val ips3 = mutableMapOf<Int, Int>()
+            val ips0 = BitSet()
+            val ips1 = BitSet()
+            val ips2 = BitSet()
+            val ips3 = BitSet()
 
             file.bufferedReader().forEachLine {
                 val ipInt = ipToInt(it)
                 var skip = false
                 
-                if(ips3[ipInt[2]] == ipInt[3]) {
-                    when {
-                        ips2[ipInt[1]] == ips3 &&
-                        ips[ipInt[0]] == ips2 -> {
-                            duplicateIps++
-                            skip = true
-                        }
-                    }
+                if(ips0.get(ipInt[0]) && ips1.get(ipInt[1]) && ips2[ipInt[2]] && ips3[ipInt[3]]) {
+                    duplicateIps++
+                    skip = true
                 }
 
                 if(!skip) {
-                    ips3[ipInt[2]] = ipInt[3]
-                    ips2[ipInt[1]] = ips3
-                    ips[ipInt[0]] = ips2
+                    ips0.set(ipInt[0])
+                    ips1.set(ipInt[1])
+                    ips2.set(ipInt[2])
+                    ips3.set(ipInt[3])
                 }
                 
                 unique++
             }
-            
-//            println(ips)
 
             return Pair(unique - duplicateIps, duplicateIps)
         }
