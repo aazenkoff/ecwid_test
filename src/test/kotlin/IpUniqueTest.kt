@@ -1,8 +1,8 @@
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import util.IpUnique
-import util.impl.IpUniqueImpl
+import com.ecwid.util.IpUnique
+import com.ecwid.util.impl.IpUniqueImpl
 import java.io.File
 import kotlin.test.assertEquals
 

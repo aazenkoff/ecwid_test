@@ -2,10 +2,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.7.0"
-    application
+    id("com.github.johnrengelman.shadow") version "6.0.0"
 }
 
-group = "org.example"
+group = "com.ecwid"
 version = "1.0"
 
 repositories {
@@ -18,12 +18,10 @@ dependencies {
     testImplementation(kotlin("test"))
 }
 
-application {
-    mainClass.set("MainKt")
-}
-
-tasks.named<JavaExec>("run") {
-    standardInput = System.`in`
+tasks.jar {
+    manifest {
+        attributes("Main-Class" to "com.ecwid.MainKt")
+    }
 }
 
 tasks.test {

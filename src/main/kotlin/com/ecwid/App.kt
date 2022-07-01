@@ -1,6 +1,8 @@
-import helper.ConsoleHelper
-import util.IpUnique
-import util.impl.IpUniqueImpl
+package com.ecwid
+
+import com.ecwid.helper.ConsoleHelper
+import com.ecwid.util.IpUnique
+import com.ecwid.util.impl.IpUniqueImpl
 import java.io.File
 import java.lang.Thread.sleep
 import java.util.*
@@ -38,7 +40,6 @@ class App {
             thread.start()
 
             val (unique, duplicate) = ipUnique.findFromFile(file)
-            sleep(10000)
             processing = false
             
             println()

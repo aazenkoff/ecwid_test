@@ -1,4 +1,4 @@
-package helper
+package com.ecwid.helper
 
 class ConsoleHelper {
     private var lastLine = ""

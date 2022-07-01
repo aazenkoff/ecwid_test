@@ -1,6 +1,6 @@
-package util.impl
+package com.ecwid.util.impl
 
-import util.IpUnique
+import com.ecwid.util.IpUnique
 import java.io.File
 import java.util.*
 

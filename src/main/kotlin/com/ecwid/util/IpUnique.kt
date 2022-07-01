@@ -1,4 +1,4 @@
-package util
+package com.ecwid.util
 
 import java.io.File
 
