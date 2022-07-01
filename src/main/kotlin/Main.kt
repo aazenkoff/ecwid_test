@@ -17,7 +17,7 @@ class Main
 
 fun main() {
     val main = Main()
-    val file = File("ip3.txt")
+    val file = File("ip.txt")
 
     val reader = Scanner(System.`in`)
     
