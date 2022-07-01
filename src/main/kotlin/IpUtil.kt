@@ -11,8 +11,6 @@ class IpUtil {
             var duplicateIps = 0
             var unique = 0
             
-            val uniqueSet = mutableSetOf<String>()
-
             file.bufferedReader().forEachLine {
                 val ipLong = ipToLong(it)
                 var skip = false
@@ -27,7 +25,6 @@ class IpUtil {
                 }
                 
                 unique++
-                uniqueSet.add(it)
             }
 
             return Pair(unique - duplicateIps, duplicateIps)
