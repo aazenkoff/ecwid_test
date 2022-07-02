@@ -7,10 +7,13 @@ import java.util.*
 
 class IpUniqueImpl: IpUnique {
     
-    private val ipSetMin = BitSet(Integer.MAX_VALUE)
-    private val ipSetMax = BitSet(Integer.MAX_VALUE)
+    private lateinit var ipSetMin: BitSet
+    private lateinit var ipSetMax: BitSet
     
     override fun findFromFile(file: File): Pair<Int, Int> {
+        ipSetMin = BitSet(Integer.MAX_VALUE)
+        ipSetMax = BitSet(Integer.MAX_VALUE)
+        
         var duplicateIps = 0
         var count = 0
         
