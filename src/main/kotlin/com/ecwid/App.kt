@@ -39,12 +39,15 @@ class App {
             }
             thread.start()
 
-            val (unique, duplicate) = ipUnique.findFromFile(file)
-            processing = false
-            
-            println()
-            println()
-            println("Unique IP: $ANSI_GREEN$unique$ANSI_RESET, Duplicated IP: $ANSI_GREEN$duplicate$ANSI_RESET")
+            try {
+                val (unique, duplicate) = ipUnique.findFromFile(file)
+                
+                println()
+                println()
+                println("Unique IP: $ANSI_GREEN$unique$ANSI_RESET, Duplicated IP: $ANSI_GREEN$duplicate$ANSI_RESET")
+            } finally {
+                processing = false
+            }
         }
 
         println("Execution time: $ANSI_GREEN$elapsed ms$ANSI_RESET")
@@ -64,6 +67,7 @@ class App {
                     execute(fileName)
                     endSearch = true
                 } catch (ex: Exception) {
+                    println()
                     println(ANSI_RED + ex.message + ANSI_RESET)
                     println()
                 }
